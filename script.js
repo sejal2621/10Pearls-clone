@@ -1,7 +1,4 @@
-// Custom Navbar Dropdown Responsive Script
-
 document.addEventListener('DOMContentLoaded', function() {
-  // Only enable hover for dropdowns on desktop
   if (window.innerWidth >= 992) {
     document.querySelectorAll('.navbar .dropdown').forEach(function(dropdown) {
       dropdown.addEventListener('mouseenter', function() {
@@ -14,21 +11,17 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   } else {
-    // On mobile, close other dropdowns when one is opened
     document.querySelectorAll('.navbar .dropdown-toggle').forEach(function(toggle) {
       toggle.addEventListener('click', function(e) {
         e.preventDefault();
         const parent = this.closest('.dropdown');
         const menu = parent.querySelector('.dropdown-menu');
-        // Close all other open dropdowns
         document.querySelectorAll('.navbar .dropdown-menu').forEach(function(m) {
           if (m !== menu) m.classList.remove('show');
         });
-        // Toggle current
         menu.classList.toggle('show');
       });
     });
-    // Close dropdowns when clicking outside
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.navbar .dropdown')) {
         document.querySelectorAll('.navbar .dropdown-menu').forEach(function(m) {
@@ -39,12 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// --- Begin moved scripts from index.html ---
-// (All JS from <script> blocks in index.html goes here, organized by section)
-// --- End moved scripts from index.html ---
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Sticky navbar
   const navbar = document.querySelector('.navbar');
   window.addEventListener('scroll', function() {
       if (window.scrollY > 50) {
@@ -56,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   });
   
-  // Initialize Bootstrap carousel
   const heroCarousel = new bootstrap.Carousel(document.getElementById('heroCarousel'), {
       interval: 5000,
       wrap: true,
@@ -64,10 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
       pause: 'hover'
   });
   
-  // Create animated digital lines and dots
   const digitalLinesContainer = document.getElementById('digitalLines');
   if (digitalLinesContainer) {
-      // Create dots
       for (let i = 0; i < 50; i++) {
           const dot = document.createElement('div');
           dot.classList.add('digital-dot');
@@ -78,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   }
   
-  // Insights Carousel
   const insightsCarousel = document.getElementById('insights-carousel');
   const insightsPrev = document.getElementById('insights-prev');
   const insightsNext = document.getElementById('insights-next');
@@ -87,11 +72,9 @@ document.addEventListener('DOMContentLoaded', function() {
   let currentSlide = 0;
   const totalSlides = 3;
   
-  // Function to update carousel position
   function updateCarouselPosition() {
       insightsCarousel.style.transform = `translateX(-${currentSlide * 100}%)`;
       
-      // Update dots
       insightsDots.forEach((dot, index) => {
           if (index === currentSlide) {
               dot.classList.add('active');
@@ -101,19 +84,16 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
   
-  // Click event for previous button
   insightsPrev.addEventListener('click', () => {
       currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
       updateCarouselPosition();
   });
   
-  // Click event for next button
   insightsNext.addEventListener('click', () => {
       currentSlide = (currentSlide + 1) % totalSlides;
       updateCarouselPosition();
   });
   
-  // Click event for pagination dots
   insightsDots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
           currentSlide = index;
@@ -121,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
   
-  // Section navigation
   document.querySelectorAll('.section-nav a').forEach(item => {
       item.addEventListener('click', function(e) {
           e.preventDefault();
@@ -129,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const targetSection = document.querySelector(targetId);
           
           if (targetSection) {
-              const headerOffset = 100; // Account for fixed header
+              const headerOffset = 100; 
               const elementPosition = targetSection.getBoundingClientRect().top;
               const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
               
@@ -141,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
   
-  // Award logo hover effect
   document.querySelectorAll('.award-container').forEach(container => {
       const link = container.querySelector('.award-link');
       
@@ -154,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
   
-  // Form validation
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
       contactForm.addEventListener('submit', function(event) {
@@ -181,13 +158,11 @@ document.addEventListener('DOMContentLoaded', function() {
           });
           
           if (isValid) {
-              // Form is valid, you can submit it
               alert('Form submitted successfully!');
               contactForm.reset();
           }
       });
       
-      // Clear validation on input
       contactForm.querySelectorAll('input, textarea').forEach(input => {
           input.addEventListener('input', function() {
               this.classList.remove('is-invalid');
@@ -204,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const totalSteps = steps.length;
   let currentStep = 0;
   
-  // Initialize - show first step
   steps.forEach((step, index) => {
       if(index === 0) {
           step.style.opacity = '1';
@@ -216,33 +190,25 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   function rotateStep() {
-      // Get current and next step
       const current = steps[currentStep];
       const nextStep = (currentStep + 1) % totalSteps;
       const next = steps[nextStep];
       
-      // Add animation class to current step
       current.classList.add('flip-animation');
       
-      // After animation completes
       setTimeout(() => {
           current.style.opacity = '0';
           current.style.transform = 'rotateX(-90deg)';
           current.classList.remove('flip-animation');
           
-          // Show next step
           next.style.opacity = '1';
           next.style.transform = 'rotateX(0)';
-          
-          // Update current step
           currentStep = nextStep;
-      }, 800); // Match this with animation duration
+      }, 800);
   }
   
-  // Auto-rotate every 3 seconds
   let interval = setInterval(rotateStep, 3000);
   
-  // Pause on hover
   flipCard.addEventListener('mouseenter', () => {
       clearInterval(interval);
   });
@@ -253,7 +219,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Enable hover for dropdowns on desktop
   if (window.innerWidth >= 992) {
     document.querySelectorAll('.navbar .dropdown').forEach(function(dropdown) {
       dropdown.addEventListener('mouseenter', function() {
